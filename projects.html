@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navneet Nair | Projects</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+    <header role="banner">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Toggle between Historic and Cyberpunk themes">
+                <span class="sun-icon">📜</span>
+                <span class="moon-icon">⚡</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Technical Projects</h1>
+        <div class="projects-grid">
+            
+            <article class="project-card">
+                <h2>ML Project</h2>
+                <img src="/images/pfp.jpg" alt="Screenshot of ML Project" class="project-image" width="350" height="200">
+                <h3>What it does</h3>
+                <p>A suite of assembly-level algorithms written for the RISC-V architecture that perform mathematical sorting and memory manipulation directly on the hardware level.</p>
+                <h3>Why I built it</h3>
+                <p>I wanted to strip away high-level abstractions like C or Python to truly understand CPU pipelining, register allocation, and how code is ultimately executed by a processor.</p>
+                <h3>What I would do differently</h3>
+                <p>If I were to rewrite it today, I would implement more rigorous edge-case testing for memory boundary violations earlier in the development cycle, rather than debugging them at runtime.</p>
+                <h3>Technology Tradeoffs</h3>
+                <p>I chose to use TensorFlow to build the multilayer perceptrons rather than writing the mathematical backpropagation algorithms entirely from scratch in NumPy. While this introduced a heavier dependency and abstracted some of the underlying math, it allowed for much faster model iteration and tuning.</p>
+                <a href="https://github.com/NavneetNair/placeholder-repo" target="_blank" rel="noopener noreferrer" class="btn github-link">GitHub</a>
+            </article>
+
+            <article class="project-card">
+                <h2>Twixt</h2>
+                <img src="/images/twixt.jpg" alt="Screenshot of Twixt game" class="project-image" width="350" height="200">
+                <h3>What it does</h3>
+                <p>This is an implementation of a simple two-player game board game using multifile C programming and linked lists.</p>
+                <h3>Why I built it</h3>
+                <p>This being my first large C project, I wished to gain experience in multifile programming and accurate handling of linked lists to encode state information.</p>
+                <h3>What I would do differently</h3>
+                <p>Firstly, and most obviously, I would rather have built this using object-oriented programming if I could do this today, so as to make it much more efficient. Secondly, I wish I would have put some more effort into the UI of the game.</p>
+                <h3>Technology Tradeoffs</h3>
+                <p>I opted for pure C with manual memory management for the linked lists instead of a higher-level language with garbage collection like Python. This resulted in a significantly faster, more memory-efficient executable, but it required meticulous debugging of pointer logic and memory leaks.</p>
+                <a href="https://github.com/DarthQorr/Twixt.git" target="_blank" rel="noopener noreferrer" class="btn github-link">GitHub</a>
+            </article>
+
+            <article class="project-card">
+                <h2>This Website!</h2>
+                <img src="/images/website.jpg" alt="Screenshot of the Website" class="project-image" width="350" height="200">
+                <h3>What it does</h3>
+                <p>This website serves as a record of me as I would present myself. My skills, projects, and Milestones have been neatly logged for anyone who wishes to quickly evalute my abilities.</p>
+                <h3>Why I built it</h3>
+                <p>While yes, this was a task for a course assignment, I had always wanted a place to log my achievements. There may not be much here at the moment, but it will serve as an invaluable record as my skills grow.</p>
+                <h3>What I would do differently</h3>
+                <p>If I had my way, I would have put all the 4 pages of the website onto a singular large page where everything can be seen at once. Unfortunately, the assignment guidelines forbade it.</p>
+                <h3>Technology Tradeoffs</h3>
+                <p>I utilized HTML, CSS, and JavaScript rather than relying on modern frameworks. This required more boilerplate code and manual state management, but it ensured a zero-dependency, blazing-fast site that complies strictly with the W3C and Lighthouse accessibility constraints.</p>
+                <a href="https://github.com/DarthQorr/Personal-Website.git" target="_blank" rel="noopener noreferrer" class="btn github-link">GitHub</a>
+            </article>
+
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
