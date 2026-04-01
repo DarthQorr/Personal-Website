@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
 :root {
     /* Spacing & Typography Scale */
     --space-sm: 0.5rem;
@@ -13,25 +18,27 @@
 }
 
 /* Historic Theme (Light) */
-[data-theme="light"] {
+[data-theme="light"] {  
     --bg-color: #f4ece1;
+    --new-color: #8b4513;
     --text-color: #2c2420;
     --accent-color: #8b4513;
     --surface-color: #eaddca;
     --border-color: #5d4037;
-    --font-display: 'Georgia', serif;
-    --font-body: 'Palatino', serif;
+    --font-display: 'Pirata One', 'Baskerville', 'Georgia', serif;
+    --font-body: 'New Rocker', serif;
 }
 
 /* Cyberpunk Theme (Dark) */
 [data-theme="dark"] {
     --bg-color: #050505;
+    --new-color: #ffffff;
     --text-color: #00ff41; /* Matrix/Neon Green */
     --accent-color: #ff00ff; /* Neon Magenta */
     --surface-color: #1a1a1a;
     --border-color: #00ffff; /* Neon Cyan */
-    --font-display: 'Courier New', monospace;
-    --font-body: 'Arial', sans-serif;
+    --font-display: 'Pixelify Sans', 'Courier New', monospace;
+    --font-body: 'Gugi', sans-serif;
 }
 
 body {
@@ -94,11 +101,43 @@ ul {
     margin: 0;
 }
 
-/* --- Header & Navigation (Flexbox) --- */
+/* ================================================================
+   HEADER & NAVIGATION
+   ================================================================ */
 header {
-    padding: var(--space-md) var(--space-lg);
-    background-color: var(--surface-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: var(--theme-transition);
+}
+
+/* Historic: deep mahogany bar, contrasting with the parchment body */
+[data-theme="light"] header {
+    background: linear-gradient(180deg, #1a0d06 0%, #2c1810 100%);
+    border-bottom: 3px solid #b07c34;
+    box-shadow: 0 4px 20px rgba(26, 13, 6, 0.5);
+}
+
+/* Cyberpunk: void black, neon cyan border with glow */
+[data-theme="dark"] header {
+    background: #000000;
     border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 0 28px rgba(0, 255, 255, 0.18);
+}
+
+/* Scanline overlay on the cyberpunk header */
+[data-theme="dark"] header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.03) 2px,
+        rgba(0, 255, 65, 0.03) 4px
+    );
+    pointer-events: none;
 }
 
 nav {
@@ -107,40 +146,132 @@ nav {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.logo {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: bold;
-    color: var(--accent-color);
+    padding: 1rem 2.5rem;
+    position: relative;
 }
 
 .nav-links {
     display: flex;
-    gap: var(--space-lg);
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-links a:hover {
-    color: var(--accent-color);
+.nav-links a {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.25s ease;
 }
 
-/* --- Theme Toggle Button --- */
+/* Animated underline slide-in */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+
+/* Historic nav */
+[data-theme="light"] .nav-links a              { color: #f0e8d8; }
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active       { color: #b07c34; }
+[data-theme="light"] .nav-links a::after       { background: #b07c34; }
+
+/* Cyberpunk nav */
+[data-theme="dark"] .nav-links a              { color: #00ff41; }
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active       { color: #00ffff; text-shadow: 0 0 10px rgba(0,255,255,0.75); }
+[data-theme="dark"] .nav-links a::after       { background: #00ffff; box-shadow: 0 0 6px rgba(0,255,255,0.8); }
+
+.nav-links a:focus-visible {
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* ================================================================
+   THEME TOGGLE — sliding pill with orb
+   ================================================================ */
 #theme-toggle {
-    background-color: var(--surface-color);
-    border: 2px solid var(--border-color);
-    border-radius: 20px;
-    padding: var(--space-sm) var(--space-md);
+    position: relative;
+    width: 90px;
+    height: 42px;
+    border-radius: 50px;
+    border: 2px solid transparent;
     cursor: pointer;
-    font-size: var(--text-md);
     display: flex;
-    gap: 10px;
-    color: var(--text-color);
-    transition: var(--theme-transition);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#theme-toggle:hover {
-    border-color: var(--accent-color);
+/* The sliding orb */
+#theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sun-icon, .moon-icon {
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+/* Historic toggle: warm golden pill, orb on the left */
+[data-theme="light"] #theme-toggle {
+    background: linear-gradient(135deg, #c9a96e, #d4b483);
+    border-color: #b07c34;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 2px 10px rgba(139,69,19,0.35);
+}
+[data-theme="light"] #theme-toggle::before {
+    left: 4px;
+    background: radial-gradient(circle, #fff8e7, #f0e0b0);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+[data-theme="light"] .sun-icon  { opacity: 1;    transform: scale(1.1); }
+[data-theme="light"] .moon-icon { opacity: 0.3;  transform: scale(0.8); filter: grayscale(1); }
+
+/* Cyberpunk toggle: void black pill, neon magenta orb on the right */
+[data-theme="dark"] #theme-toggle {
+    background: #080010;
+    border-color: #ff00ff;
+    box-shadow: 0 0 14px rgba(255,0,255,0.55), inset 0 0 10px rgba(255,0,255,0.08);
+}
+[data-theme="dark"] #theme-toggle::before {
+    left: calc(100% - 34px);
+    background: radial-gradient(circle, #ff80ff, #ff00ff);
+    box-shadow: 0 0 14px rgba(255,0,255,1), 0 0 28px rgba(255,0,255,0.5);
+}
+[data-theme="dark"] .sun-icon  { opacity: 0.2;  transform: scale(0.8); filter: grayscale(1); }
+[data-theme="dark"] .moon-icon { opacity: 1;    transform: scale(1.2); text-shadow: 0 0 10px #00ffff; }
+
+#theme-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-color);
 }
 
 /* --- Hero Section Layout --- */
@@ -265,6 +396,8 @@ nav {
     font-family: var(--font-display);
     color: var(--accent-color);
     margin-bottom: var(--space-lg);
+    text-align: center;
+    font-size: var(--text-lg);
 }
 
 /* The vertical spine */
@@ -470,6 +603,18 @@ nav {
 
 /* Mobile: collapse to single left-aligned column */
 @media (max-width: 768px) {
+    /* Skills & Projects: stack title above content on mobile */
+    .skills-section,
+    .home-projects-section {
+        flex-direction: column;
+    }
+
+    .projects-title { order: 1; } /* keep normal flow when stacked */
+
+    .home-projects-list {
+        grid-template-columns: 1fr 1fr; /* keep 2 cols even on mobile */
+    }
+
     .timeline-list::before { left: 18px; }
 
     .timeline-item {
@@ -511,6 +656,7 @@ nav {
 .project-card h2 {
     color: var(--accent-color);
     font-family: var(--font-display);
+    text-align: center;
 }
 
 .project-card h3 {
@@ -573,8 +719,9 @@ nav {
 
 /* --- University Section --- */
 .university-section {
-    padding: var(--space-lg) 10%;
+    margin-top: var(--space-lg);
     border-top: 1px solid var(--border-color);
+    padding: 4rem 10% 2rem 10%; /* Increased top padding to 4rem */
 }
 
 .university-card {
@@ -588,7 +735,7 @@ nav {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-sm); 
 }
 
 .location-pin {
@@ -609,11 +756,8 @@ nav {
     font-family: var(--font-body);
     font-size: var(--text-base);
     font-weight: normal;
-    font-style: italic;
     color: var(--text-color);
-    opacity: 0.8;
     margin: 0 0 var(--space-sm);
-    padding-left: calc(28px + var(--space-sm)); /* aligns under the text, not the pin */
 }
 
 .university-year {
@@ -621,78 +765,112 @@ nav {
     font-size: var(--text-base);
     font-weight: normal;
     color: var(--text-color);
-    opacity: 0.55;
     margin: 0;
-    padding-left: calc(28px + var(--space-sm));
 }
 
 /* --- Home Page Updates (Skills & Projects) --- */
-.skills-section, .home-projects-section {
+/* --- Skills Section: title left, two columns of pills right --- */
+.skills-section {
     margin-top: var(--space-lg);
     border-top: 1px solid var(--border-color);
-    padding-top: var(--space-lg);
+    padding: 4rem 10% 2rem 10%; /* Increased top padding to 4rem */
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+}
+
+.skills-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);  /* massively enlarged */
+    color: var(--text-color);
+    margin: 0;
+    flex-shrink: 0;
+    min-width: 220px;
+    line-height: 1.1;
+    padding-top: 2px;
+    text-align: center;
+}
+
+.skills-columns {
+    display: flex;
+    gap: var(--space-md);
+    flex: 1;
+    flex-wrap: wrap;
 }
 
 .skills-list {
     display: flex;
-    flex-direction: column; /* This changes the layout from horizontal wrap to a downward list */
-    gap: var(--space-sm);
-    max-width: 400px; /* Keeps the buttons from stretching all the way across the screen */
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 140px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: var(--new-color);
 }
 
 .skills-list li {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
-    padding: var(--space-sm) var(--space-md);
+    padding: 4px 12px; /* Decreased padding */
     border-radius: 20px;
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* Slightly smaller text */
+    text-align: center;
+}
+
+/* --- Projects Section: title LEFT, 2×2 grid RIGHT --- */
+.home-projects-section {
+    margin-top: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 10% 2rem 10%; /* Increased top padding to 4rem */
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-lg);
+}
+
+.projects-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);  /* massively enlarged */
+    color: var(--text-color);
+    margin: 0;
+    flex-shrink: 0;
+    min-width: 220px;
+    line-height: 1.1;
+    order: 1; /* title on the LEFT */
+    padding-top: 2px;
 }
 
 .home-projects-list {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: grid;
-    gap: var(--space-md);
-    /* Creates a responsive grid that adjusts columns based on screen size */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    flex: 1;
+    order: 2; /* grid on the RIGHT */
 }
 
 .home-projects-list li {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: var(--space-lg) var(--space-md);
+    padding: 12px 10px; /* Decreased padding */
     text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.85rem; /* Slightly smaller text */
+    font-weight: bold;
+    color: var(--new-color);
     transition: var(--theme-transition);
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .home-projects-list li:hover {
     border-color: var(--accent-color);
-    transform: translateY(-5px); /* Gentle lift effect */
+    transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-}
-
-.home-projects-list a {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--text-color);
-    text-decoration: none;
-    display: block; /* Makes the whole card clickable */
-}
-
-/* Adds a subtle arrow on hover */
-.home-projects-list a::after {
-    content: " →";
-    color: var(--accent-color);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.home-projects-list li:hover a::after {
-    opacity: 1;
 }
 
 .home-projects-section, .university-section {
@@ -727,14 +905,15 @@ nav {
 }
 
 .contact-links a {
-    color: var(--accent-color);
+    color: var(--new-color);
     text-decoration: underline;
 }
 
 .contact-divider-text {
-    text-align: center;
-    font-style: italic;
+    text-align: left;
+    font-size: var(--text-md);
     margin: var(--space-lg) 0 var(--space-sm);
+    color: var(--accent-color);
 }
 
 .styled-divider {
@@ -744,36 +923,57 @@ nav {
     margin-bottom: var(--space-lg);
 }
 
-/* --- Upgraded Theme Toggle Button --- */
-#theme-toggle {
-    background-color: var(--surface-color);
-    border: 2px solid var(--border-color);
-    border-radius: 30px;
-    padding: 6px 16px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 85px;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: var(--theme-transition);
+
+
+/* --- THE NUCLEAR OVERRIDES --- */
+
+/* 1. Force the spacing above the sections AND the distance from titles */
+.skills-section, 
+.home-projects-section, 
+.university-section {
+    padding-top: 6rem !important; 
+    gap: 8rem !important; /* This pushes the columns much further away from the titles */
 }
 
-/* Historic Mode Styling */
-[data-theme="light"] #theme-toggle {
-    background: linear-gradient(145deg, #eaddca, #f4ece1);
-    box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.2), 0 2px 5px rgba(0,0,0,0.1);
+/* 2. Force the Skills cells: larger text, bolder, more padding */
+.skills-list li {
+    padding: 10px 24px !important; 
+    font-size: 1rem !important; 
+    font-weight: bold !important; 
 }
-[data-theme="light"] .sun-icon { opacity: 1; transform: scale(1.1); transition: 0.3s; }
-[data-theme="light"] .moon-icon { opacity: 0.4; transform: scale(0.8); filter: grayscale(100%); transition: 0.3s; }
 
-/* Cyberpunk Mode Styling */
-[data-theme="dark"] #theme-toggle {
-    background: #0a0a0a;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), inset 0 0 5px rgba(0, 255, 255, 0.2);
+/* 3. Force the Projects cells: larger text, more padding */
+.home-projects-list li {
+    padding: 16px 24px !important; 
+    font-size: 1.1rem !important; 
 }
-[data-theme="dark"] .sun-icon { opacity: 0.3; transform: scale(0.8); filter: grayscale(100%); transition: 0.3s; }
-[data-theme="dark"] .moon-icon { opacity: 1; transform: scale(1.2); text-shadow: 0 0 10px var(--border-color); transition: 0.3s; }  
+
+/* 4. Let the columns breathe a little more horizontally */
+.skills-columns {
+    max-width: 700px !important;
+}
+
+/* 5. Let the Projects grid breathe a little more horizontally */
+.home-projects-list {
+    max-width: 850px !important;
+}
+
+.personal-statement h2 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+}
+
+
+.project-card h3 {
+    font-family: var(--font-display);
+    color: var(--new-color);
+    font-size: 1.4rem; /* Bumped up slightly so the display fonts are readable */
+    letter-spacing: 0.05em;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-sm);
+}
+
+
+/* end of stylesheet */
