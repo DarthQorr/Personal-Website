@@ -23,10 +23,10 @@ I chose a "Historic" Theme for Light mode and a "Cyberpunk" Theme for Dark mode.
 
 ## Deliverable 5: Screenshots
 *Screenshots are located in the `/images/` directory.*
-* [HTML Validation for Home Page (Zero Errors)](images/WC3-home.jpg)
-* [HTML Validation for About Page (Zero Errors)](images/WC3-about.jpg)
-* [HTML Validation for Projects Page (Zero Errors)](images/WC3-projects.jpg)
-* [HTML Validation for Contact Page (Zero Errors)](images/WC3-contact.jpg)
+* [HTML Validation for Home Page (Zero Errors)](images/W3C-home.jpg)
+* [HTML Validation for About Page (Zero Errors)](images/W3C-about.jpg)
+* [HTML Validation for Projects Page (Zero Errors)](images/W3C-projects.jpg)
+* [HTML Validation for Contact Page (Zero Errors)](images/W3C-contact.jpg)
 * [Lighthouse Audit (≥ 85)](images/Lighthouse.jpg)
 * [WCAG Contrast Check (Light Theme)](images/WCAG-light.jpg)
 * [WCAG Contrast Check (Dark Theme)](images/WCAG-dark.jpg)
