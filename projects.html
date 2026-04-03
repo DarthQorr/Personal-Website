@@ -27,16 +27,16 @@
         <div class="projects-grid">
             
             <article class="project-card">
-                <h2>ML Project</h2>
-                <img src="/images/pfp.jpg" alt="Screenshot of ML Project" class="project-image" width="350" height="200">
+                <h2>Flight Aggregator</h2>
+                <img src="/images/Flightaggregator.jpg" alt="Screenshot of Flight Aggregator Project" class="project-image" width="350" height="200">
                 <h3>What it does</h3>
-                <p>A suite of assembly-level algorithms written for the RISC-V architecture that perform mathematical sorting and memory manipulation directly on the hardware level.</p>
+                <p>This Python project aggregates data from over 67,000 flight routes and 9,300 airports into a single searchable interface. It allows users to explore global flight paths, find direct or connecting routes between cities, and save itineraries on to a CSV file.</p>
                 <h3>Why I built it</h3>
-                <p>I wanted to strip away high-level abstractions like C or Python to truly understand CPU pipelining, register allocation, and how code is ultimately executed by a processor.</p>
+                <p>Originally a High school assignment, this was my very first large scale programming project. It served as a practical challenge to implement automated pathfinding for connecting flights and for handling large amounts of data.</p>
                 <h3>What I would do differently</h3>
-                <p>If I were to rewrite it today, I would implement more rigorous edge-case testing for memory boundary violations earlier in the development cycle, rather than debugging them at runtime.</p>
+                <p>I would firstly transition from a CLI to a web-based GUI. Additionally, I would implement advanced pathfinding algorithms to support multi-stop itineraries.</p>
                 <h3>Technology Tradeoffs</h3>
-                <p>I chose to use TensorFlow to build the multilayer perceptrons rather than writing the mathematical backpropagation algorithms entirely from scratch in NumPy. While this introduced a heavier dependency and abstracted some of the underlying math, it allowed for much faster model iteration and tuning.</p>
+                <p>I chose to upload the raw CSV and text data into MySQL tables to ensure faster query speeds and more robust relational linking. While this required more backend boilerplate code than a simple file-reader, it significantly improved performance.</p>
                 <a href="https://github.com/NavneetNair/placeholder-repo" target="_blank" rel="noopener noreferrer" class="btn github-link">GitHub</a>
             </article>
 
@@ -71,7 +71,8 @@
         </div>
     </main>
     <footer role="contentinfo">
-        <p> A product of many sleepless nights in 2026 by Navneet Nair!</p>
+        <p class="footer-text-light">The sum of many sleep-deprived days in 2026 by Navneet Nair!</p>
+        <p class="footer-text-dark">A product of many sleepless nights in 2026 by Navneet Nair!</p>
     </footer>
 
     <script src="script.js"></script>

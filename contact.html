@@ -24,10 +24,9 @@
 
 <main class="container contact-container">
         <h1 class="page-title">Get in Touch</h1>
-        
         <div class="contact-info">
             <ul class="contact-links">
-                <li><strong>Personal Email:</strong> <a href="mailto:navneet.suresh.nair@gmail.com">navneet.suresh.nair@gmail.com</a></li>
+                <li><strong>Personal Email:</strong> <a href="mailto:fcb72dc625d570984a7d0fc452d8cfd7">navneet.suresh.nair@gmail.com</a></li>
                 <li><strong>University Email:</strong> <a href="mailto:navneet.nair@students.iiit.ac.in">navneet.nair@students.iiit.ac.in</a></li>
                 <li><strong>Phone:</strong> <a href="tel:+919039787350">+91 9039787 350</a></li>
                 <li><strong>WhatsApp:</strong> <a href="https://wa.me/00971527823352">+971 52 7823352</a></li>
@@ -44,17 +43,17 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required aria-required="true">
-                    <span class="error-msg" id="name-error">Please enter your name.</span>
+                    <span class="error-msg" id="name-error" aria-live="polite">Please enter your name.</span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required aria-required="true">
-                    <span class="error-msg" id="email-error">Please enter a valid email address.</span>
+                    <span class="error-msg" id="email-error" aria-live="polite">Please enter a valid email address.</span>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
-                    <span class="error-msg" id="message-error">Please enter a message.</span>
+                    <span class="error-msg" id="message-error" aria-live="polite">Please enter a message.</span>
                 </div>
                 <button type="submit" class="btn">Send Message</button>
             </form>
@@ -64,9 +63,10 @@
             <h2>Message Sent!</h2>
             <p>Thank you for reaching out. I'll get back to you shortly.</p>
         </div>
-    </main>
+        </main>
     <footer role="contentinfo">
-        <p> A product of many sleepless nights in 2026 by Navneet Nair!</p>
+        <p class="footer-text-light">The sum of many sleep-deprived days in 2026 by Navneet Nair!</p>
+        <p class="footer-text-dark">A product of many sleepless nights in 2026 by Navneet Nair!</p>
     </footer>
 
     <script src="script.js"></script>

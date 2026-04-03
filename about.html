@@ -21,6 +21,9 @@
             </button>
         </nav>
     </header>
+    <div id="reading-progress-container" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
 
     <main class="container">
         <section class="about-section">
@@ -28,7 +31,7 @@
             
             <div class="about-grid">
                 <div class="profile-image-container">
-                    <img src="/images/pfpn.jpg" alt="Navneet Nair" class="profile-pic" width="300" height="300">
+                    <img src="/images/pfp.jpg" alt="Navneet Nair profile picture" class="profile-pic" width="300" height="300">
                 </div>
                 
                 <div class="personal-statement">
@@ -142,9 +145,18 @@
         </section>
     </main>
 
+    <div id="resume-prompt" class="hidden" role="dialog" aria-labelledby="resume-text">
+        <p id="resume-text">Resume reading where you left off?</p>
+        <div class="prompt-actions">
+            <button id="resume-yes" class="btn btn-sm">Yes, scroll down</button>
+            <button id="resume-no" class="btn btn-secondary btn-sm">Dismiss</button>
+        </div>
+    </div>
     <footer role="contentinfo">
-        <p>A product of many sleepless nights in 2026 by Navneet Nair!</p>
+        <p class="footer-text-light">The sum of many sleep-deprived days in 2026 by Navneet Nair!</p>
+        <p class="footer-text-dark">A product of many sleepless nights in 2026 by Navneet Nair!</p>
     </footer>
     <script src="script.js"></script>
+    <script type="module" src="about-init.js"></script>
 </body>
 </html>

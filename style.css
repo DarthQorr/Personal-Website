@@ -4,41 +4,103 @@
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
 :root {
-    /* Spacing & Typography Scale */
+    /* ── Spacing scale ── */
     --space-sm: 0.5rem;
     --space-md: 1rem;
     --space-lg: 2.5rem;
+
+    /* ── Type scale ── */
     --text-base: 1rem;
     --text-md: 1.25rem;
     --text-lg: 2rem;
     --text-xl: 4rem;
 
-    /* Transition */
+    /* ── Transition ── */
     --theme-transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-/* Historic Theme (Light) */
-[data-theme="light"] {  
-    --bg-color: #f4ece1;
-    --new-color: #8b4513;
-    --text-color: #2c2420;
-    --accent-color: #8b4513;
+    /* ══════════════════════════════════════════
+       Light (Historic) theme — default values.
+       Dark theme overrides these below.
+       ══════════════════════════════════════════ */
+
+    /* Semantic palette */
+    --bg-color:      #f4ece1;
+    --text-color:    #2c2420;
+    --accent-color:  #8b4513;
     --surface-color: #eaddca;
-    --border-color: #5d4037;
+    --border-color:  #5d4037;
+    --new-color:     #8b4513;
+    --color-error:   #cc0000;
+
+    /* Fonts */
     --font-display: 'Pirata One', 'Baskerville', 'Georgia', serif;
-    --font-body: 'New Rocker', serif;
+    --font-body:    'New Rocker', serif;
+
+    /* Header */
+    --header-bg:        linear-gradient(180deg, #1a0d06 0%, #2c1810 100%);
+    --header-border:    #b07c34;
+    --header-shadow:    0 4px 20px rgba(26, 13, 6, 0.5);
+
+    /* Nav links */
+    --nav-link-color:   #f0e8d8;
+    --nav-link-active:  #b07c34;
+    --nav-underline:    #b07c34;
+    --nav-glow:         none;
+
+    /* Theme toggle pill */
+    --toggle-bg:          linear-gradient(135deg, #c9a96e, #d4b483);
+    --toggle-border:      #b07c34;
+    --toggle-shadow:      inset 0 2px 4px rgba(0,0,0,0.15), 0 2px 10px rgba(139,69,19,0.35);
+    --toggle-orb-bg:      radial-gradient(circle, #fff8e7, #f0e0b0);
+    --toggle-orb-shadow:  0 2px 6px rgba(0,0,0,0.25);
+    --toggle-orb-left:    4px;
+
+    /* Neutral overlays & shadows (theme-independent) */
+    --hover-overlay:      rgba(0,0,0,0.04);
+    --card-shadow:        0 4px 6px rgba(0,0,0,0.05);
+    --card-shadow-hover:  0 8px 15px rgba(0,0,0,0.1);
+
+    /* Scanline (unused in light mode) */
+    --scanline-color: transparent;
 }
 
-/* Cyberpunk Theme (Dark) */
 [data-theme="dark"] {
-    --bg-color: #050505;
-    --new-color: #ffffff;
-    --text-color: #00ff41; /* Matrix/Neon Green */
-    --accent-color: #ff00ff; /* Neon Magenta */
+    /* Semantic palette */
+    --bg-color:      #050505;
+    --text-color:    #00ff41;  /* Matrix/Neon Green */
+    --accent-color:  #ff00ff;  /* Neon Magenta */
     --surface-color: #1a1a1a;
-    --border-color: #00ffff; /* Neon Cyan */
+    --border-color:  #00ffff;  /* Neon Cyan */
+    --new-color:     #ffffff;
+
+    /* Fonts */
     --font-display: 'Pixelify Sans', 'Courier New', monospace;
-    --font-body: 'Gugi', sans-serif;
+    --font-body:    'Gugi', sans-serif;
+
+    /* Header */
+    --header-bg:       #000000;
+    --header-border:   #00ffff;
+    --header-shadow:   0 0 28px rgba(0, 255, 255, 0.18);
+
+    /* Nav links */
+    --nav-link-color:  #00ff41;
+    --nav-link-active: #00ffff;
+    --nav-underline:   #00ffff;
+    --nav-glow:        0 0 10px rgba(0,255,255,0.75);
+
+    /* Theme toggle pill */
+    --toggle-bg:          #080010;
+    --toggle-border:      #ff00ff;
+    --toggle-shadow:      0 0 14px rgba(255,0,255,0.55), inset 0 0 10px rgba(255,0,255,0.08);
+    --toggle-orb-bg:      radial-gradient(circle, #ff80ff, #ff00ff);
+    --toggle-orb-shadow:  0 0 14px rgba(255,0,255,1), 0 0 28px rgba(255,0,255,0.5);
+    --toggle-orb-left:    calc(100% - 34px);
+
+    /* Scanline overlay colour */
+    --scanline-color: rgba(0, 255, 65, 0.03);
+
+    /* Dark mode hover overlay */
+    --hover-overlay: rgba(255,255,255,0.04);
 }
 
 body {
@@ -111,21 +173,14 @@ header {
     transition: var(--theme-transition);
 }
 
-/* Historic: deep mahogany bar, contrasting with the parchment body */
-[data-theme="light"] header {
-    background: linear-gradient(180deg, #1a0d06 0%, #2c1810 100%);
-    border-bottom: 3px solid #b07c34;
-    box-shadow: 0 4px 20px rgba(26, 13, 6, 0.5);
+/* Header colours driven entirely by CSS variables — no hard-coded values */
+header {
+    background: var(--header-bg);
+    border-bottom: 2px solid var(--header-border);
+    box-shadow: var(--header-shadow);
 }
 
-/* Cyberpunk: void black, neon cyan border with glow */
-[data-theme="dark"] header {
-    background: #000000;
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 0 28px rgba(0, 255, 255, 0.18);
-}
-
-/* Scanline overlay on the cyberpunk header */
+/* Scanline overlay — colour is transparent in light mode, set in dark via --scanline-color */
 [data-theme="dark"] header::after {
     content: '';
     position: absolute;
@@ -134,8 +189,8 @@ header {
         0deg,
         transparent,
         transparent 2px,
-        rgba(0, 255, 65, 0.03) 2px,
-        rgba(0, 255, 65, 0.03) 4px
+        var(--scanline-color) 2px,
+        var(--scanline-color) 4px
     );
     pointer-events: none;
 }
@@ -184,17 +239,11 @@ nav {
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
-/* Historic nav */
-[data-theme="light"] .nav-links a              { color: #f0e8d8; }
-[data-theme="light"] .nav-links a:hover,
-[data-theme="light"] .nav-links a.active       { color: #b07c34; }
-[data-theme="light"] .nav-links a::after       { background: #b07c34; }
-
-/* Cyberpunk nav */
-[data-theme="dark"] .nav-links a              { color: #00ff41; }
-[data-theme="dark"] .nav-links a:hover,
-[data-theme="dark"] .nav-links a.active       { color: #00ffff; text-shadow: 0 0 10px rgba(0,255,255,0.75); }
-[data-theme="dark"] .nav-links a::after       { background: #00ffff; box-shadow: 0 0 6px rgba(0,255,255,0.8); }
+/* Nav link colours — all via variables */
+.nav-links a              { color: var(--nav-link-color); }
+.nav-links a:hover,
+.nav-links a.active       { color: var(--nav-link-active); text-shadow: var(--nav-glow); }
+.nav-links a::after       { background: var(--nav-underline); }
 
 .nav-links a:focus-visible {
     outline: none;
@@ -241,33 +290,22 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* Historic toggle: warm golden pill, orb on the left */
-[data-theme="light"] #theme-toggle {
-    background: linear-gradient(135deg, #c9a96e, #d4b483);
-    border-color: #b07c34;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 2px 10px rgba(139,69,19,0.35);
+/* Toggle pill — all colours via variables */
+#theme-toggle {
+    background: var(--toggle-bg);
+    border-color: var(--toggle-border);
+    box-shadow: var(--toggle-shadow);
 }
-[data-theme="light"] #theme-toggle::before {
-    left: 4px;
-    background: radial-gradient(circle, #fff8e7, #f0e0b0);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+#theme-toggle::before {
+    left: var(--toggle-orb-left);
+    background: var(--toggle-orb-bg);
+    box-shadow: var(--toggle-orb-shadow);
 }
+
 [data-theme="light"] .sun-icon  { opacity: 1;    transform: scale(1.1); }
 [data-theme="light"] .moon-icon { opacity: 0.3;  transform: scale(0.8); filter: grayscale(1); }
-
-/* Cyberpunk toggle: void black pill, neon magenta orb on the right */
-[data-theme="dark"] #theme-toggle {
-    background: #080010;
-    border-color: #ff00ff;
-    box-shadow: 0 0 14px rgba(255,0,255,0.55), inset 0 0 10px rgba(255,0,255,0.08);
-}
-[data-theme="dark"] #theme-toggle::before {
-    left: calc(100% - 34px);
-    background: radial-gradient(circle, #ff80ff, #ff00ff);
-    box-shadow: 0 0 14px rgba(255,0,255,1), 0 0 28px rgba(255,0,255,0.5);
-}
-[data-theme="dark"] .sun-icon  { opacity: 0.2;  transform: scale(0.8); filter: grayscale(1); }
-[data-theme="dark"] .moon-icon { opacity: 1;    transform: scale(1.2); text-shadow: 0 0 10px #00ffff; }
+[data-theme="dark"]  .sun-icon  { opacity: 0.2;  transform: scale(0.8); filter: grayscale(1); }
+[data-theme="dark"]  .moon-icon { opacity: 1;    transform: scale(1.2); text-shadow: 0 0 10px var(--border-color); }
 
 #theme-toggle:focus-visible {
     outline: none;
@@ -530,8 +568,8 @@ nav {
     transition: background 0.2s ease;
 }
 
-.timeline-header:hover { background: rgba(0,0,0,0.04); }
-[data-theme="dark"] .timeline-header:hover { background: rgba(255,255,255,0.04); }
+.timeline-header:hover { background: var(--hover-overlay); }
+[data-theme="dark"] .timeline-header:hover { background: var(--hover-overlay); }
 
 .timeline-header:focus-visible {
     outline: none;
@@ -691,14 +729,14 @@ nav {
 }
 
 .error-msg {
-    color: red;
+    color: var(--color-error);
     font-size: 0.85rem;
     margin-top: 5px;
     display: none; /* Hidden by default */
 }
 
 .invalid input, .invalid textarea {
-    border-color: red;
+    border-color: var(--color-error);
 }
 
 .invalid .error-msg {
@@ -864,13 +902,13 @@ nav {
     font-weight: bold;
     color: var(--new-color);
     transition: var(--theme-transition);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: var(--card-shadow);
 }
 
 .home-projects-list li:hover {
     border-color: var(--accent-color);
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .home-projects-section, .university-section {
@@ -975,5 +1013,76 @@ nav {
     margin-bottom: var(--space-sm);
 }
 
+[data-theme="light"] .footer-text-dark {
+    display: none;
+}
+
+[data-theme="dark"] .footer-text-light {
+    display: none;
+}
+
+footer {
+    text-align: left;
+    padding: var(--space-sm);
+    border-top: 1px solid var(--border-color);
+    margin-top: var(--space-sm);
+}
+
+/* --- A2: Reading Progress Feature --- */
+#reading-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+#reading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+    transition: width 0.1s ease-out;
+}
+
+/* --- A2: Resume Prompt Toast --- */
+#resume-prompt {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--surface-color);
+    border: 2px solid var(--border-color);
+    padding: var(--space-md);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 999;
+    max-width: 300px;
+    transform: translateY(150%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#resume-prompt.visible {
+    transform: translateY(0);
+}
+
+#resume-text {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    font-weight: bold;
+    font-family: var(--font-display);
+    color: var(--text-color);
+}
+
+.prompt-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
 
 /* end of stylesheet */
